@@ -1,0 +1,33 @@
+user_typing_title() {
+	local _title=''
+	echo "Enter a title:"
+	read _title
+	if [[ -z "$_title" ]]; then
+		echo "title can not be empty"
+		exit
+	fi
+	eval "$1='$_title'"
+}
+
+if [[ -z "$1" ]]; then
+	title=""
+	user_typing_title title 
+else
+	title=$1
+fi
+
+post_time=$(date +"%Y-%m-%d-")
+file_name="$post_time$title.markdown"
+path="../_posts/$file_name"
+
+if [[ -f $path ]]; then
+	echo "$file_name exists"
+else
+	echo "---
+layout: post
+title:  \"$title\"
+date:   $(date +"%Y-%m-%d %T")
+categories: 
+---" > $path
+	echo "New Post $path has been created!"
+fi
