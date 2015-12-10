@@ -32,7 +32,7 @@ It will promote you to enter the password btw.
 
 **Enable Password Login**
 
-In `/etc/ssh/ssh_config`, uncomment or add following to enable ssh login with password
+In `/etc/ssh/sshd_config`, uncomment or add following to enable ssh login with password
 
 {% highlight bash %}
 PasswordAuthentication yes
@@ -45,5 +45,27 @@ $ sudo service ssh restart
 {% endhighlight %}
 
 *Vagrant default password is vagrant, the same as default username*
+
+**Enable Root Login**
+
+Ubuntu, by default, doesn't allow you to login with password by using root account directly with command
+
+{% highlight bash %}
+$ ssh root@server
+{% endhighlight %}
+
+We can enable it by change following line in `/etc/ssh/sshd_config`
+
+{% highlight bash %}
+# PermitRootLogin without-password
+PermitRootLogin yes
+{% endhighlight %}
+
+*There is another `ssh_config` file in the same folder with `sshd_config`.
+`ssh_config` is for ssh client configuaretion, used when connect to other ssh server.
+`sshd_config` is daemon configuare for ssh server, used when other clients connect to this server*
+
+
+
 
 
